@@ -85,12 +85,12 @@ export default {
             const user = JSON.parse(request.responseText);
             localStorage.setItem('token', user.token);
             localStorage.setItem('user', JSON.stringify(user));
+            this.$router.push('Home');
           } else {
             alert('Une erreur est survenue!');
           }
         }
       };
-      this.$router.push('Home');
     },
   },
 };

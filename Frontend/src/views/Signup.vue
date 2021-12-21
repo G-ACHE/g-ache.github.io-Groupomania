@@ -154,7 +154,7 @@ button {
   background: rgba(23, 35, 60);
   color: white;
 }
-@media (min-width: 320px) and (max-width: 520px) {
+@media (min-width: 320px) and (max-width: 1020px) {
   .form-group {
     margin-left: auto;
   }

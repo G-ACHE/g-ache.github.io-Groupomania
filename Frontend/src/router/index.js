@@ -6,6 +6,7 @@ import Signup from '../views/Signup.vue';
 import Home from '../views/Home.vue';
 import Profile from '../views/Profile.vue';
 import Post from '../views/Post.vue';
+import Admin from '../views/Admin.vue';
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,11 @@ const routes = [
     path: '/post/:id',
     name: 'Post',
     component: Post,
+  },
+  {
+    path: '/Admin',
+    name: 'Admin',
+    component: Admin,
   },
 ];
 

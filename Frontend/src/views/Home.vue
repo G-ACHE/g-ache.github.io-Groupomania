@@ -20,6 +20,9 @@
       >
         Déconnexion
       </button>
+      <router-link v-if="auth(UserId)" class="admin" :to="'/Admin/'">
+        Administrateur</router-link
+      >
     </div>
     <div class="posts">
       <div class="post" v-for="post in posts" :key="post.id">
@@ -28,7 +31,7 @@
           {{ new Date(post.createdAt).toLocaleDateString() }}
         </p>
         <p>
-          par : <span>{{ post.User.pseudo }}</span>
+          par : <span>{{ post.user.pseudo }}</span>
         </p>
         <p class="text">{{ post.text }}</p>
         <img alt="post image" v-if="post.file" :src="post.file" />
@@ -82,6 +85,16 @@ export default {
     this.getAll();
   },
   methods: {
+    auth(UserId) {
+      const { user } = JSON.parse(localStorage.getItem('user'));
+      if (user.isAdmin) {
+        return true;
+      }
+      if (user.id !== UserId) {
+        return false;
+      }
+      return true;
+    },
     getAll() {
       const request = new XMLHttpRequest();
       request.open('get', 'http://localhost:3000/api/post/all', true);
@@ -151,7 +164,8 @@ img {
   text-align: center;
   color: black;
 }
-button {
+button,
+.admin {
   margin: 1rem;
   font-size: 20px;
   border-radius: 25px;

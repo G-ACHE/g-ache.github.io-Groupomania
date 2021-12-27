@@ -9,7 +9,7 @@
           Prénom: <span>{{ user.firstName }}</span>
         </p>
         <button
-          v-on:click.prevent.stop="deleteProfile"
+          v-on:click.prevent.stop="deleteProfile(user.id)"
           aria-label="Suppression du compte"
           class="button"
           type="submit"
@@ -72,23 +72,16 @@ export default {
       };
     },
     //Fonction de suppression d'un utilisateur
-    deleteProfile() {
+    deleteProfile(UserId) {
       if (confirm('êtes vous sûr de vouloir supprimer votre compte ?')) {
-        fetch(
-          `http://localhost:3000/api/user/${
-            JSON.parse(localStorage.getItem('user')).user.id
-          }`,
-          {
-            method: 'DELETE',
-            headers: {
-              'Content-type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
+        fetch(`http://localhost:3000/api/user/${UserId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-        )
-          .then(this.$store.commit('logout'))
-          .then(localStorage.clear())
-          .then(this.$router.push('login'))
+        })
+          .then(this.$router.push('Admin'))
           .catch((error) => {
             error;
           });
